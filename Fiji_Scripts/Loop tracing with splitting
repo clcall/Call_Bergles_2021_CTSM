@@ -1,0 +1,30 @@
+dir=getDirectory("Choose a Directory"); 
+print(dir); 
+splitDir=dir+"\Split\\";
+print(splitDir);
+
+list = getFileList(dir); 
+for (i=0; i<list.length; i++) { 
+     if (endsWith(list[i], ".tif")){ 
+     	print(i + ":" + dir + list[i]);
+     	open(dir + list[i]);
+	imgName=getTitle(); 
+         baseNameEnd=indexOf(imgName, ".tif"); 
+         baseName=substring(imgName, 0, baseNameEnd); 
+
+         run("Split Channels"); 
+         selectWindow("C1-" + imgName); 
+         rename("Axons-" + imgName); 
+         saveAs("Tiff", splitDir+getTitle() + ".tif"); 
+         //close(); 
+         selectWindow("C2-" + imgName); 
+         rename("Myelin-" + imgName); 
+         saveAs("Tiff", splitDir+getTitle() + ".tif"); 
+         close(); 
+
+     	run("Simple Neurite Tracer", "choice=[No 3D view] resampling=4");
+     	waitForUser("Pause","Trace, fill, save fills and traces, click OK.");
+     	run("Close All");		    
+     }
+
+}

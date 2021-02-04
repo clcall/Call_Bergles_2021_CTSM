@@ -1,0 +1,8 @@
+dir=getDirectory("Choose a Directory");
+print(dir);
+filepath=File.openDialog("Select axon/myelin file to trace"); 
+open(filepath);
+name=getTitle();
+run("Simple Neurite Tracer", "choice=[No 3D view] resampling=4");
+run("Grid...", "grid=Lines area=10000 color=White");
+
