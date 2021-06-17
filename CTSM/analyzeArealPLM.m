@@ -26,7 +26,6 @@ end
 arealPLM.SS.cmbdData = CTSM_PLM.PV.cmbdData;
 arealPLM.SS.cmbdAxData = CTSM_PLM.PV.cmbdAxData;
 arealPLM.SS.cmbdIntData = CTSM_PLM.PV.cmbdIntData;
-
 %% calculate statistics
 data = NaN(60,3);
 data(1:length(arealPLM.SS.cmbdData),1) = arealPLM.SS.cmbdData;
@@ -37,6 +36,35 @@ data(1:length(arealPLM.TEa.cmbdData),5) = arealPLM.TEa.cmbdData;
 
 [p{1},tbl{1},stats{1}] = kruskalwallis(data);
 comparison{1} = multcompare(stats{1},'CType','dunn-sidak');
+%%
+colors{1} = [244 228 28]./255;
+colors{2} = [253 190 61]./255;
+colors{3} = [65 186 151]./255;
+colors{4} = [20 132 211]./255;
+colors{5} = [53 42 134]./255;
+figure;
+h = cdfplot(data(:,5));
+h.Color = colors{1};
+h.LineWidth = 2;
+hold on
+h = cdfplot(data(:,4));
+h.Color = colors{2};
+h.LineWidth = 2;
+h = cdfplot(data(:,3));
+h.Color = colors{3};
+h.LineWidth = 2;
+h = cdfplot(data(:,2));
+h.Color = colors{4};
+h.LineWidth = 2;
+h = cdfplot(data(:,1));
+h.Color = colors{5};
+h.LineWidth = 2;
+hold off
+figQuality(gcf,gca,[3,2.7]);
+ylabel('cumulative proportion')
+xlabel('percent length myelinated')
+grid off
+title([])
 %% plot histograms
 figure
 subplot(2,3,1)

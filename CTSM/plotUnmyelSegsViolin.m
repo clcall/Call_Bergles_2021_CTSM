@@ -86,3 +86,32 @@ box off
 figQuality(gcf,gca,[4.5 3]);
 
 unmyelSegData = {PVdataN,PVdataNN,VMdataN,VMdataNN,POdataN,POdataNN,SOMdataN,SOMdataNN};
+%%
+m = max([length(PVdataNN),length(VMdataNN),length(SOMdataNN),length(POdataNN)]);
+temp = NaN(m,4);
+temp(1:length(PVdataNN),1) = PVdataNN';
+temp(1:length(VMdataNN),2) = VMdataNN';
+temp(1:length(SOMdataNN),3) = SOMdataNN';
+temp(1:length(POdataNN),4) = POdataNN';
+[p,tbl,stats] = kruskalwallis(temp);
+%%
+figure;
+h = cdfplot(VMdataNN);
+h.Color = vm;
+h.LineWidth = 1;
+hold on
+h = cdfplot(PVdataNN);
+h.Color = pv;
+h.LineWidth = 1;
+h = cdfplot(SOMdataNN);
+h.Color = som;
+h.LineWidth = 1;
+h = cdfplot(POdataNN);
+h.Color = po;
+h.LineWidth = 1;
+hold off
+figQuality(gcf,gca,[3,2.7]);
+ylabel('cumulative proportion')
+xlabel('unmyelinated segment length ()')
+grid off
+title([])
